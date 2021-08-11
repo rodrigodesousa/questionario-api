@@ -47,9 +47,10 @@ public class QuestionarioResource {
 	}
 	
 	@RequestMapping(value="{id}", method=RequestMethod.GET)
-	public ResponseEntity<Questionario> buscarQuestionario(@PathVariable Long id) {
+	public ResponseEntity<QuestionarioDTO> buscarQuestionario(@PathVariable Long id) {
 		Questionario obj = questionarioService.buscarQuestionario(id);
-		return ResponseEntity.ok().body(obj);
+		QuestionarioDTO objDto = new QuestionarioDTO(obj);
+		return ResponseEntity.ok().body(objDto);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
