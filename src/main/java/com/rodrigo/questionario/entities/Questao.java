@@ -1,6 +1,8 @@
 package com.rodrigo.questionario.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Questao implements Serializable {
@@ -35,11 +38,23 @@ public class Questao implements Serializable {
 	@Column(nullable = true)
 	private boolean alternativaComNumeroOuLetra;
 	
+	@OneToMany(mappedBy="questao")
+	private List<Resposta> respostas = new ArrayList<>();
+	
+	public List<Resposta> getRespostas() {
+		return respostas;
+	}
+
+	public void setRespostas(List<Resposta> respostas) {
+		this.respostas = respostas;
+	}
+
 	public Questao() {
 	}
 
 	public Questao(Long id, int numero, String descricao, TipoQuestao tipo, boolean obrigatoria, boolean situacao,
-			Questionario questionario, int minimoCorretas, boolean alternativaComNumeroOuLetra) {
+			Questionario questionario, int minimoCorretas, boolean alternativaComNumeroOuLetra,
+			List<Resposta> respostas) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -50,6 +65,7 @@ public class Questao implements Serializable {
 		this.questionario = questionario;
 		this.minimoCorretas = minimoCorretas;
 		this.alternativaComNumeroOuLetra = alternativaComNumeroOuLetra;
+		this.respostas = respostas;
 	}
 
 	public Long getId() {

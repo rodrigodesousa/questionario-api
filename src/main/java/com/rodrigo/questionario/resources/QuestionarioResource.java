@@ -1,6 +1,8 @@
 package com.rodrigo.questionario.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,14 @@ public class QuestionarioResource {
 	@Autowired
 	private QuestionarioService questionarioService;
 	
+	
+	@RequestMapping(value="/all", method=RequestMethod.GET)
+	public ResponseEntity<List<QuestionarioDTO>> listarTodosQuestionarios() {
+		List<Questionario> list = questionarioService.listarTodosQuestionarios();
+		List<QuestionarioDTO> listDTO = list.stream().map(obj -> new QuestionarioDTO(obj)).collect(Collectors.toList());
+
+		return ResponseEntity.ok().body(listDTO);
+	}
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<Page<QuestionarioDTO>> listarQuestionarios(
 			@RequestParam(value="page", defaultValue="0") Integer page,

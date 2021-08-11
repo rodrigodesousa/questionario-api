@@ -1,5 +1,6 @@
 package com.rodrigo.questionario.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,8 @@ public class QuestaoService {
 	public Page<Questao> listarQuestaos(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage,Direction.valueOf(direction), orderBy);
 		return questaoRepository.findAll(pageRequest);
+	}
+	public List<Questao> listarQuestoesPorQuestionarioId(Long questionario_id) {
+		return questaoRepository.findByQuestionario(questionario_id);
 	}
 }

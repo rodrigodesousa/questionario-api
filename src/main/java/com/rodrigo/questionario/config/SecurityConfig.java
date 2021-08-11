@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS = {
 			"/questionarios/**",
 			"/questoes/**",
+			"/respostas/**",
 			"/h2-console/**",
 			"/**.html","/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**"
 	};
