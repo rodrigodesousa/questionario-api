@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,6 +43,17 @@ public class Questao implements Serializable {
 	@OneToMany(mappedBy="questao")
 	private List<Resposta> respostas = new ArrayList<>();
 	
+	@OneToMany(mappedBy="questao", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Alternativa> alternativas = new ArrayList<>();
+	
+	public List<Alternativa> getAlternativas() {
+		return alternativas;
+	}
+
+	public void setAlternativas(List<Alternativa> alternativas) {
+		this.alternativas = alternativas;
+	}
+
 	public List<Resposta> getRespostas() {
 		return respostas;
 	}
@@ -54,7 +67,7 @@ public class Questao implements Serializable {
 
 	public Questao(Long id, int numero, String descricao, TipoQuestao tipo, boolean obrigatoria, boolean situacao,
 			Questionario questionario, int minimoCorretas, boolean alternativaComNumeroOuLetra,
-			List<Resposta> respostas) {
+			List<Resposta> respostas, List<Alternativa> alternativas) {
 		super();
 		this.id = id;
 		this.numero = numero;
@@ -66,6 +79,7 @@ public class Questao implements Serializable {
 		this.minimoCorretas = minimoCorretas;
 		this.alternativaComNumeroOuLetra = alternativaComNumeroOuLetra;
 		this.respostas = respostas;
+		this.alternativas = alternativas;
 	}
 
 	public Long getId() {

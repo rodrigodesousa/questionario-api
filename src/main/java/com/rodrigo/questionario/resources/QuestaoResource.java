@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.rodrigo.questionario.dto.QuestaoDTO;
 import com.rodrigo.questionario.entities.Questao;
+import com.rodrigo.questionario.entities.TipoQuestao;
 import com.rodrigo.questionario.services.QuestaoService;
 
 @RestController
